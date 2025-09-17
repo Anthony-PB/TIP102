@@ -33,9 +33,40 @@ def batman():
 
 
 
+# Advanced Problem Set 2:
+# Q1:
+def words_with_char(words, x):
+    res = []
+	for i in range(len(words)):
+        if x in words[i]:
+            res.append(i)
+    return res
 
+# Q2 (FizzBuzz variant):
+def hulk_smash(n):
+    res = []
+	for i in range(1, n + 1):
+        add = ""
+        if i % 3 == 0:
+            add = add + "Hulk"
+        if i % 5 == 0:
+            add = add + "Smash"
+        if add:
+            res.append(add)
+        else:
+            res.append(str(i))
+    return res
 
+# Q3:
+def shuffle(message, indices):
+	char_list = list(message)
+    for i in range(len(message)):
+        char_list[indices[i]] = message[i]
+    return ''.join(char_list)
 
+# Q4:
+def minimum_boxes(meals, capacity):
+	pass
 
 
 # Tests
