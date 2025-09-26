@@ -419,3 +419,50 @@ def beauty_sum(collection):
 
 # [[5], [0, 1, 2], [3, 4, 6]]
 # [[1], [0, 5], [2, 3, 4]]
+
+
+# Problem 8:
+"""
+
+
+def find_difference(signals1, signals2):
+    if(not signals1):
+        return [list(set(signals2))]
+    if(not signals2):
+        return [list(set(signals1))]
+    s1 = set(signals1)
+    s2 = set(signals2)
+
+    diff1 = s1.difference(s2)
+    diff2 = s2.difference(s1)
+
+    # Here we can see that .difference on a set simply gets the between s1 and s2 where we keep
+
+    return [list(diff1), list(diff2)]
+
+"""
+
+# Problem 6: Counting Divisible Collections in the Gallery
+# You have a list of integers collection_sizes representing the sizes of different art collections in your gallery and are trying to determine how to group them to best fit in your space. 
+# Given an integer k write a function count_divisible_collections() that returns the number of non-empty subarrays (contiguous parts of the array) where the sum of the sizes is divisible by k.
+
+def count_divisible_collections(collection_sizes, k):
+    count = 0
+    n = len(collection_sizes)
+    for i in range(0,n):
+        for j in range(i,n):
+            nSum = sum(collection_sizes[i:j+1])
+            if(nSum % k == 0):
+                count = count + 1
+
+    return count
+
+
+
+nums1 = [4, 5, 0, -2, -3, 1]
+k1 = 5
+nums2 = [5]
+k2 = 9
+
+print(count_divisible_collections(nums1, k1))  
+print(count_divisible_collections(nums2, k2))  
