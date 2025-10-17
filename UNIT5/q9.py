@@ -6,8 +6,8 @@ class Node:
         
 tom_nook = Node("Tom Nook")
 tommy = Node("Tommy") 
-tom_nook.next = tommy 
-print(tom_nook.value) 
-print(tom_nook.next.value) 
-print(tommy.value) 
-print(tommy.next) 
+tom_nook.next = tommy
+print(tom_nook.value)
+print(tom_nook.next.value)
+print(tommy.value)
+print(tommy.next)
