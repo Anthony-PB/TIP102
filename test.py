@@ -1,23 +1,53 @@
-def unique_prime_factorization(n):
-    factors = []
-    
-    # Handle 2 as a special case
-    if n % 2 == 0:
-        factors.append(2)
-        while n % 2 == 0:
-            n //= 2
-    
-    # Check odd numbers up to sqrt(n)
-    for i in range(3, int(n**0.5) + 1, 2):
-        if n % i == 0:
-            factors.append(i)
-            while n % i == 0:
-                n //= i
-    
-    # If n is greater than 2, it must be prime
-    if n > 2:
-        factors.append(n)
-    
-    return factors
+"""
+Problem #1
+Given a string s consisting of English letters (lowercase and/or uppercase) and digits, return all possible strings that can be formed by changing the case of the letters in s. You may not alter the order of characters in the string, and digits should remain unchanged.
+Input: s = "a1b2"
+Output: ["a1b2", "A1b2", "a1B2", "A1B2"]
+Input: s = "3z4"
+Output: ["3z4", "3Z4"]
+Input: s = "12345"
+Output: ["12345"]
+"""
+# Understanding:
+# We want to essentially treat each letter character as a binary where it can either be lowercase or uppercase
+# Input -> String
+# Output -> List of strings
 
-print(unique_prime_factorization(25))
+# Match:
+# BFS
+# List to store our current results
+
+# Plan:
+# Empty List to start res = [""]
+# for char in s: (index access or for each)
+# next_results = []
+# if digit append digit to element
+# else if 
+# res.append()
+# res.append()
+# res = next_results
+# Return res
+
+
+# Time Complexity: O(n * 2^L)
+# Space Complexity: O(2^n)
+
+def possible_string(s):
+    res = [""]
+    for i in range(len(s)):
+        next_results = []
+        curr_char = s[i]
+        if(curr_char.isdigit()):
+            for element in res:
+                next_results.append(element + curr_char)
+        else:
+            for element in res:
+                next_results.append(element + curr_char.lower())
+                next_results.append(element + curr_char.upper())
+        res = next_results
+    return res
+
+print(possible_string("a1b2"))
+print(possible_string("abbc"))
+        
+        
