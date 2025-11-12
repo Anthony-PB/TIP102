@@ -1,0 +1,268 @@
+from collections import deque 
+
+# Tree Node class
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def print_tree(root):
+    if not root:
+        return "Empty"
+    result = []
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        if node:
+            result.append(node.val)
+            queue.append(node.left)
+            queue.append(node.right)
+        else:
+            result.append(None)
+    while result and result[-1] is None:
+        result.pop()
+    print(result)
+
+# Tree Node class
+class TreeNode:
+  def __init__(self, value, key=None, left=None, right=None):
+      self.key = key
+      self.val = value
+      self.left = left
+      self.right = right
+
+def build_tree(values):
+  if not values:
+      return None
+
+  def get_key_value(item):
+      if isinstance(item, tuple):
+          return item[0], item[1]
+      else:
+          return None, item
+
+  key, value = get_key_value(values[0])
+  root = TreeNode(value, key)
+  queue = deque([root])
+  index = 1
+
+  while queue:
+      node = queue.popleft()
+      if index < len(values) and values[index] is not None:
+          left_key, left_value = get_key_value(values[index])
+          node.left = TreeNode(left_value, left_key)
+          queue.append(node.left)
+      index += 1
+      if index < len(values) and values[index] is not None:
+          right_key, right_value = get_key_value(values[index])
+          node.right = TreeNode(right_value, right_key)
+          queue.append(node.right)
+      index += 1
+
+  return root
+
+# #PROBLEM 1
+# # If order1 is None
+# # return order2
+
+# # If order2 is None
+# # return order1 
+
+
+# def merge_orders(order1, order2):
+#     if not order1:
+#         return order2
+#     if not order2:
+#         return order1
+#     if not order1 and not order2:
+#         return None
+    
+#     new_node = TreeNode(order1.val+order2.val)
+#     new_node.left = merge_orders(order1.left, order2.left)
+#     new_node.right = merge_orders(order1.right, order2.right)
+#     return new_node
+    
+
+# cookies1 = [1, 3, 2, 5]
+# cookies2 = [2, 1, 3, None, 4, None, 7]
+# order1 = build_tree(cookies1)
+# order2 = build_tree(cookies2)
+
+# # Using print_tree() function included at top of page
+# print_tree(merge_orders(order1, order2))
+
+# #Output - [3, 4, 5, 5, 4, None, 7]
+
+# Problem 2:
+
+# class Puff():
+#      def __init__(self, flavor, left=None, right=None):
+#         self.val = flavor
+#         self.left = left
+#         self.right = right
+
+# def print_design(design):
+#     if not design:
+#         return []
+    
+#     queue = deque([design])
+#     flavors = []
+
+#     while queue:
+#         pointer = queue.popleft()
+#         flavors.append(pointer.val)
+
+#         if pointer.left:
+#             queue.append(pointer.left)
+
+#         if pointer.right:
+#             queue.append(pointer.right)
+
+#     return flavors
+
+
+
+# """
+#             Vanilla
+#            /       \
+#       Chocolate   Strawberry
+#       /     \
+#   Vanilla   Matcha  
+# # """
+# # croquembouche = Puff("Vanilla", 
+# #                     Puff("Chocolate", Puff("Vanilla"), Puff("Matcha")), 
+# #                     Puff("Strawberry"))
+# # print(print_design(croquembouche))
+
+# # #OUTPUT - ['Vanilla', 'Chocolate', 'Strawberry', 'Vanilla', 'Matcha']
+
+
+# # #PROBLEM3
+
+# class TreeNode():
+#      def __init__(self, value, left=None, right=None):
+#         self.val = value
+#         self.left = left
+#         self.right = right
+
+# def max_tiers(cake):
+     
+#     if cake is None:
+#         return 0
+
+#     leftNodes = max_tiers(cake.left)
+#     rightNodes = max_tiers(cake.right)
+
+#     return 1 + max(leftNodes,rightNodes)
+
+
+# # Using build_tree() function included at top of page
+# cake_sections = ["Chocolate", "Vanilla", "Strawberry", None, None, "Chocolate", "Coffee"]
+# cake = build_tree(cake_sections)
+
+# print(max_tiers(cake))
+
+#Output - 3
+
+# #Problem 4
+
+# class TreeNode():
+#      def __init__(self, value, left=None, right=None):
+#         self.val = value
+#         self.left = left
+#         self.right = right
+
+# def max_tiers(cake):
+#     if not cake:
+#         return 0
+    
+#     queue = deque([cake])
+#     largestTier = 0
+#     while queue:
+#         for i in range(len(queue)):
+#             curr = queue.popleft()
+
+#             if curr.left:
+#                 queue.append(curr.left)
+#             if curr.right:
+#                 queue.append(curr.right)
+        
+#         largestTier += 1
+
+#     return largestTier
+# """
+#         Chocolate
+#         /        \
+#     Vanilla    Strawberry
+#                 /     \
+#          Chocolate    Coffee
+# """
+
+# cake_sections = ["Chocolate", "Vanilla", "Strawberry", None, None, "Chocolate", "Coffee"]
+# cake = build_tree(cake_sections)
+
+# print(max_tiers(cake))
+
+# Problem 5
+
+class TreeNode():
+     def __init__(self, value, left=None, right=None):
+        self.val = value
+        self.left = left
+        self.right = right
+
+def can_fulfill_order(inventory, order_size):
+    "Returns True if there exists a root to leaf path in the tree"
+    "such that order_size = sum of nodes"
+    if not inventory:
+        return order_size == 0
+    remaining = order_size - inventory.val
+    if(not inventory.left and not inventory.right):
+        return remaining == 0
+    left = False
+    if(inventory.left):
+        left = can_fulfill_order(inventory.left, remaining)
+    right = False
+    if(inventory.right):
+        right = can_fulfill_order(inventory.right, remaining)
+    return left or right
+
+quantities = [5,4,8,11,None,13,4,7,2,None,None,None,1]
+baked_goods = build_tree(quantities)
+
+print(can_fulfill_order(baked_goods, 22))
+print(can_fulfill_order(baked_goods, 2))
+
+# Problem 6
+
+class TreeNode():
+     def __init__(self, flavor, left=None, right=None):
+        self.val = flavor
+        self.left = left
+        self.right = right
+
+def zigzag_icing_order(cupcakes):
+    if not cupcakes:
+        return []
+    res = []
+    queue = deque([cupcakes])
+    while queue:
+        curr = queue.popleft()
+        res = res + []
+
+"""
+
+            Chocolate
+           /         \
+        Vanilla       Lemon
+       /              /    \
+    Strawberry   Hazelnut   Red Velvet   
+"""
+
+# Using build_tree() function included at top of page
+flavors = ["Chocolate", "Vanilla", "Lemon", "Strawberry", None, "Hazelnut", "Red Velvet"]
+cupcakes = build_tree(flavors)
+print(zigzag_icing_order(cupcakes))
+
+# Output: ['Chocolate', 'Lemon', 'Vanilla', 'Strawberry', 'Hazelnut', 'Red Velvet']
